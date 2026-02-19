@@ -1,0 +1,10 @@
+---
+ - name: print a msg
+   hosts: all
+     # vars:
+     #  name: sunil kumar
+     #  job: network
+   tasks:
+           - name: print
+             debug:
+                   msg: Hello my name is {{ name }} and i {{ job }} engineer

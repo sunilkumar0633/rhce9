@@ -1,21 +1,24 @@
 ---
  - name: configure web-server
    hosts: all
+   vars_files:
+              - ./vars.yaml
    tasks:
-            - name: install apache
+            - name: install {{ app }}
               yum:
-                    name: httpd
+                    name: "{{ package }}"
                     state: present
+              register: package_info
 
-            - name: manage apache service
+            - name: manage {{ app }} service
               service:
-                    name: httpd
+                    name: "{{ service }}"
                     state: started
                     enabled: yes
 
             - name: manage firewall
               firewalld:
-                    port: 80/tcp
+                    port: "{{ port }}"
                     permanent: true
                     state: enabled
                     immediate: true
@@ -23,9 +26,13 @@
             - name: copy web-content
               copy:
                     src: ./index.html
-                    dest: /var/www/html
+                    dest: "{{ DC }}"
 
-            - name: restart httpd service
+            - name: restart {{ service }} service
               service:
-                    name: httpd
+                    name: "{{ service }}"
                     state: restarted
+
+            - name: print register var
+              debug:
+                    var: package_info

@@ -1,0 +1,32 @@
+---
+ - name: lvcreation
+   hosts: all
+   tasks:
+                  - name: vg not available
+                    debug:
+                             msg: vg is not available
+                    when: ansible_lvm.vgs.myvg is not defined
+
+                  - name: lvm create of 1500m
+                    lvol:
+                          vg: myvg
+                          lv: mylv
+                          size: 1500m
+                    when: ansible_lvm.vgs.myvg.free_g>="1.6"
+
+                  - name: print msg req size not available
+                    debug:
+                             msg: req size is not available
+                    when: ansible_lvm.vgs.myvg.free_g<="1.6"
+
+                  - name: lvm create of 800m
+                    lvol:
+                          vg: myvg
+                          lv: mylv
+                          size: 800m
+                    when: ansible_lvm.vgs.myvg.free_g<="1.6"
+
+                  - name: formate lvm
+                    filesystem:
+                          fstype: ext4
+                          dev: /dev/myvg/mylv

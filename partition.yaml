@@ -1,0 +1,42 @@
+---
+ - name: create partition
+   hosts: all
+   tasks:
+             - name: print a msg device not available
+               debug:
+                      msg: device is not available
+               when: ansible_devices.sda is not defined
+
+             - name: create 3G partition
+               parted:
+                      device: /dev/sda
+                      number: 1
+                      state: present
+                      part_end: 3GiB
+               when: ansible_devices.sda.size>="3g"
+
+             - name: print a msg req size not available
+               debug:
+                      msg: req size is not available
+               when: ansible_devices.sda.size<="3g"
+
+             - name: create 2G partition
+               parted:
+                      device: /dev/sda
+                      number: 1
+                      state: present
+                      part_end: 1.8GiB
+               when: ansible_devices.sda.size<="3g"
+
+
+             - name: format partition
+               filesystem:
+                       fstype: ext4
+                       dev: /dev/sda1
+
+             - name: mount
+               mount:
+                        path: /data
+                        src: /dev/sda1
+                        fstype: ext4
+                        state: present

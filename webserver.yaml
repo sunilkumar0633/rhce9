@@ -28,11 +28,19 @@
                     src: ./index.html
                     dest: "{{ DC }}"
 
-            - name: restart {{ service }} service
-              service:
-                    name: "{{ service }}"
-                    state: restarted
+            - name: copy conf file
+              copy:
+                    src: ./rcat.conf
+                    dest: /etc/httpd/conf.d/rcat.conf
+              notify:
+                    - restart apache
 
             - name: print register var
               debug:
                     var: package_info
+
+   handlers:
+         - name: restart apache
+           service:
+                   name: httpd
+                   state: restarted

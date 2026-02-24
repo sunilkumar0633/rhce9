@@ -1,0 +1,13 @@
+---
+ - name: add a block in file
+   hosts: all
+   tasks:
+              - name: add block
+                blockinfile:
+                        path: /opt/systeminfo.txt
+                        block: |
+                               Hello this is {{ ansible_hostname }}
+                               Ip address of this device is {{ ansible_default_ipv4.address }}
+                               Host OS is {{ ansible_distribution }}
+                               Total RAM is {{ ansible_memtotal_mb }} MiB
+                        create: yes

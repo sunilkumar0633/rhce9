@@ -1,0 +1,37 @@
+---
+# tasks file for apache
+
+            - name: install {{ app }}
+              yum:
+                    name: "{{ package }}"
+                    state: present
+              register: package_info
+
+            - name: manage {{ app }} service
+              service:
+                    name: "{{ service }}"
+                    state: started
+                    enabled: yes
+
+            - name: manage firewall
+              firewalld:
+                    port: "{{ port }}"
+                    permanent: true
+                    state: enabled
+                    immediate: true
+
+            - name: copy web-content
+              copy:
+                    src: index.html
+                    dest: "{{ DC }}"
+
+            - name: copy conf file
+              template:
+                    src: rcat.j2
+                    dest: /etc/httpd/conf.d/rcat.conf
+              notify:
+                    - restart apache
+
+            - name: print register var
+              debug:
+                    var: package_info

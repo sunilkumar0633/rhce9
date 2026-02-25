@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rcat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+        }
+        main {
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+        .email {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to Rcat</h1>
+    </header>
+
+    <main>
+        <p>This is the official homepage of Rcat.</p>
+        <p class="email">Contact: sunilkumar@gmail.com</p>
+        <button onclick="showMessage()">Click Me</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Rcat | Email: sunilkumar@gmail.com</p>
+    </footer>
+
+    <script>
+        function showMessage() {
+            alert("Welcome to Rcat! Thanks for visiting.");
+        }
+    </script>
+
+</body>
+</html>

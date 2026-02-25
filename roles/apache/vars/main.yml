@@ -1,0 +1,8 @@
+---
+# vars file for apache
+app: apache
+package: httpd
+service: httpd.service
+DC: /var/www/html
+port: 80/tcp
+email: root@localhost
